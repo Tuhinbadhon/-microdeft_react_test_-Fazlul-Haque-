@@ -10,7 +10,7 @@ const Form = () => {
   const helmetContext = {};
   const navigate = useNavigate();
 
-  const handleAddItems = (event) => {
+  const handleAddItems = async (event) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -30,18 +30,29 @@ const Form = () => {
     };
     console.log(newItem);
     // Send data to the server
-    axios
-      .post("https://react.microhost.one/api/course", newItem)
-      .then((data) => {
-        if (data.data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Item Added Successfully",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-        }
+
+    try {
+      const response = await axios.post(
+        "https://react.microhost.one/api/course",
+        newItem
+      );
+      console.log(response);
+      if (response.data.data.id) {
+        await Swal.fire({
+          title: "Success!",
+          text: "Item Added Successfully",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error!",
+        text: "There was an issue adding the item.",
+        icon: "error",
+        confirmButtonText: "OK",
       });
+    }
   };
 
   return (
