@@ -23,22 +23,24 @@ const Card = () => {
       {items.length > 0 ? (
         items.map((item, index) => (
           <div key={index} className="card bg-base-100 w-96 shadow-xl mb-4">
-            <figure>
+            <figure className="mt-7">
               <img src={item.image} alt={item.title} />
             </figure>
             <div className="card-body">
               <h2 className="card-title">
+                Title:
                 {item.title}
-                <div className="badge badge-secondary">NEW</div>
+                <div className="badge badge-secondary">{item.badge_text}</div>
               </h2>
+              <h2 className="card-title"> badge-color: {item.badge_color}</h2>
               <p>{item.description}</p>
-              <div className="card-actions justify-end">
-                {item.tags?.map((tag, i) => (
-                  <div key={i} className="badge badge-outline">
-                    {tag}
-                  </div>
-                ))}
-              </div>
+              <p>
+                instructor-name:{" "}
+                <span className="font-semibold">{item.instructor_name}</span>
+              </p>
+              <p>
+                Email: <span className="font-semibold">{item.email}</span>
+              </p>
             </div>
           </div>
         ))
